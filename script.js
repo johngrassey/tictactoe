@@ -24,6 +24,7 @@ function Gameboard () {
             for (let j = 0; j < cols; j++) {
                 board[i] = 0;
             }
+        }
     }
 
     return { printBoard, placeToken, clearBoard };
@@ -37,13 +38,25 @@ function createPlayer (name, token) {
 };
 
 function GameController () {
-    const playerOne = createPlayer (prompt("Name?"), prompt("Token?"));
-    const playerTwo = createPlayer (prompt("Name?"), prompt("Token?"));
+    const players = [createPlayer (prompt("Name?"), "X"),
+                    createPlayer (prompt("Name?"), "O")]
     const board = Gameboard();
 
-    console.log(playerOne);
-    console.log(playerTwo);
-    board.placeToken(0,1,"X");
+    let activePlayer = players[0];
+
+    const switchPlayer = () => {
+        activePlayer = activePlayer === players[0] ? players[1] : players[0];
+    }
+
+    const turn = () => {
+        const row = prompt("Row");
+        const col = prompt("Col");
+        board.placeToken(row,col,activePlayer.playerToken);
+        switchPlayer();
+    }
+
+    turn();
+    turn();
     board.printBoard();
 };
 
