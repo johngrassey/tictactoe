@@ -40,14 +40,14 @@ function Gameboard () {
         // Check Rows
 
             if (board[i].join("") === "XXX" || board[i].join("") === "OOO")
-                alert ("YOU WIN!");
+                return true;
 
         // Check Columns
 
             for (let j = 0; j < cols; j++) {
                 column += board[j][i];
                 if (column === "XXX" || column === "OOO") {
-                    alert ("YOU WIN!");
+                    return true;
                 }
             }
             column = "";
@@ -56,8 +56,10 @@ function Gameboard () {
         // Check Diagonals
 
         if (board[0][0] + board[1][1] + board[2][2] === "XXX" || board[0][2] + board[1][1] + board[2][0] === "OOO") {
-                alert ("YOU WIN!");
+                return true;
         }
+
+        return false;
     }
 
     const checkTie = () => {
@@ -95,25 +97,26 @@ function GameController () {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
 
-    const turn = () => {
+    const playTurn = () => {
         const row = prompt("Row");
         const col = prompt("Col");
         board.placeToken(row,col,activePlayer.playerToken);
-        board.checkWinner();
-        board.checkTie();
-        switchPlayer();
-        board.printBoard();
+
     }
 
-    turn();
-    turn();
-    turn();
-    turn();
-    turn();
-    turn();
-    turn();
-    turn();
-    turn();
+    const playGame = () => {
+        while ( !board.checkWinner() && !board.checkTie() ) {
+            playTurn();
+            switchPlayer();
+            board.printBoard();
+        } 
+
+        alert ( "GAME OVER!");
+    }
+
+    return { playGame };
 };
 
-GameController();
+const game = GameController();
+
+game.playGame();
