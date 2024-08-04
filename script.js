@@ -118,7 +118,7 @@ function GameController () {
         alert ( "GAME OVER!");
     }
 
-    return { playGame, getActivePlayer,
+    return { playGame, getActivePlayer, playTurn,
             getBoard: board.getBoard };
 };
 
@@ -134,19 +134,18 @@ function ScreenController () {
 
         messageDiv.textContent = `${activePlayer.playerName}'s Turn`;
 
-        board.forEach(row => {
-            row.forEach(col => {
-                const cellDiv = document.createElement("div");
+        board.forEach((row, i) => {
+            row.forEach((col, j) => {
+                const cellDiv = document.createElement("button");
                 cellDiv.classList.add("cell");
-                cellDiv.textContent = "TEST";
+                cellDiv.textContent = board[i][j];
                 boardDiv.appendChild(cellDiv);
             })
         })
 
-        console.log(board);
-        console.log(activePlayer);
     }
 
+    game.playTurn();
     updateScreen();
 }
 
