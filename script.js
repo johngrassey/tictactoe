@@ -15,7 +15,12 @@ function Gameboard () {
     }
 
     const placeToken = (row, column, token) => {
-        board[row][column] = token;
+        if (board[row][column] === "") {
+            board[row][column] = token;
+        } else {
+            alert ("Space Taken!");
+        };
+ 
     }
 
     const clearBoard = () => {
@@ -27,7 +32,35 @@ function Gameboard () {
         }
     }
 
-    return { printBoard, placeToken, clearBoard };
+    const checkWinner = () => {
+
+        let column = "";
+        for (let i = 0; i < rows; i++) {
+
+        // Check Rows
+
+            if (board[i].join("") === "XXX" || board[i].join("") === "OOO")
+                alert ("YOU WIN!");
+
+        // Check Columns
+
+            for (let j = 0; j < cols; j++) {
+                column += board[j][i];
+                if (column === "XXX" || column === "OOO") {
+                    alert ("YOU WIN!");
+                }
+            }
+            column = "";
+        }
+
+        // Check Diagonals
+
+        if (board[0][0] + board[1][1] + board[2][2] === "XXX" || board[0][2] + board[1][1] + board[2][0] === "OOO") {
+                alert ("YOU WIN!");
+        }
+    }
+
+    return { printBoard, placeToken, clearBoard, checkWinner };
 };
 
 function createPlayer (name, token) {
@@ -38,8 +71,8 @@ function createPlayer (name, token) {
 };
 
 function GameController () {
-    const players = [createPlayer (prompt("Name?"), "X"),
-                    createPlayer (prompt("Name?"), "O")]
+    const players = [createPlayer ("John", "X"),
+                    createPlayer ("Brielle", "O")]
     const board = Gameboard();
 
     let activePlayer = players[0];
@@ -52,12 +85,16 @@ function GameController () {
         const row = prompt("Row");
         const col = prompt("Col");
         board.placeToken(row,col,activePlayer.playerToken);
+        board.checkWinner();
         switchPlayer();
+        board.printBoard();
     }
 
     turn();
     turn();
-    board.printBoard();
+    turn();
+    turn();
+    turn();
 };
 
 GameController();
