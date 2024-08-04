@@ -18,7 +18,7 @@ function Gameboard () {
         if (board[row][column] === "") {
             board[row][column] = token;
         } else {
-            alert ("Space Taken!");
+           alert ("Space Taken!");
         };
  
     }
@@ -101,34 +101,28 @@ function GameController () {
 
     const getActivePlayer = () => activePlayer;
 
-    const playTurn = () => {
-        const row = prompt("Row");
-        const col = prompt("Col");
+    const playTurn = (row, col) => {
         board.placeToken(row,col,activePlayer.playerToken);
+        switchPlayer();
+        // while ( !board.checkWinner() && !board.checkTie() ) {
+        //     switchPlayer();
+        //     board.printBoard();
 
+        // }
     }
 
-    const playGame = () => {
-        while ( !board.checkWinner() && !board.checkTie() ) {
-            playTurn();
-            switchPlayer();
-            board.printBoard();
-        } 
-
-        alert ( "GAME OVER!");
-    }
-
-    return { playGame, getActivePlayer, playTurn,
+    return { getActivePlayer, playTurn,
             getBoard: board.getBoard };
-};
+    };
 
 function ScreenController () {
     const game = GameController();
     const boardDiv = document.querySelector(".board");
     const messageDiv = document.querySelector(".message");
 
-
     const updateScreen = () => {
+
+        boardDiv.textContent = "";
         const activePlayer = game.getActivePlayer();
         const board = game.getBoard();
 
@@ -140,12 +134,15 @@ function ScreenController () {
                 cellDiv.classList.add("cell");
                 cellDiv.textContent = board[i][j];
                 boardDiv.appendChild(cellDiv);
+                cellDiv.addEventListener("click", () => {
+                    game.playTurn(i, j);
+                    updateScreen();
+                });
             })
-        })
-
+        }) 
     }
 
-    game.playTurn();
+    // game.playTurn();
     updateScreen();
 }
 
