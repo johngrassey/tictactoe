@@ -17,10 +17,7 @@ function Gameboard () {
     const placeToken = (row, column, token) => {
         if (board[row][column] === "") {
             board[row][column] = token;
-        } else {
-           alert ("Space Taken!");
-        };
- 
+        }
     }
 
     const getBoard = () => board;
@@ -57,8 +54,11 @@ function Gameboard () {
 
         // Check Diagonals
 
-        if (board[0][0] + board[1][1] + board[2][2] === "XXX" || board[0][2] + board[1][1] + board[2][0] === "OOO") {
-                return true;
+        if (board[0][0] + board[1][1] + board[2][2] === "OOO" ||
+            board[0][0] + board[1][1] + board[2][2] === "XXX" ||
+            board[0][2] + board[1][1] + board[2][0] === "OOO" ||
+            board[0][2] + board[1][1] + board[2][0] === "XXX") {
+            return true;
         }
 
         return false;
@@ -74,7 +74,7 @@ function Gameboard () {
         }
 
         if (boardValues.length === 9 ) {
-            alert ( "It's a Tie!");
+            return true;
         }
     }
 
@@ -103,12 +103,14 @@ function GameController () {
 
     const playTurn = (row, col) => {
         board.placeToken(row,col,activePlayer.playerToken);
-        switchPlayer();
-        // while ( !board.checkWinner() && !board.checkTie() ) {
-        //     switchPlayer();
-        //     board.printBoard();
 
-        // }
+        if (board.checkWinner()) {
+            alert ("WINNER!")
+        } else if (board.checkTie()) {
+            alert ("TIE!")
+        }
+
+        switchPlayer();
     }
 
     return { getActivePlayer, playTurn,
@@ -142,7 +144,6 @@ function ScreenController () {
         }) 
     }
 
-    // game.playTurn();
     updateScreen();
 }
 
