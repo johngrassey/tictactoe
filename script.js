@@ -60,7 +60,21 @@ function Gameboard () {
         }
     }
 
-    return { printBoard, placeToken, clearBoard, checkWinner };
+    const checkTie = () => {
+        boardValues = "";
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                boardValues += board[i][j];
+            }
+        }
+
+        if (boardValues.length === 9 ) {
+            alert ( "It's a Tie!");
+        }
+    }
+
+    return { printBoard, placeToken, clearBoard, checkWinner, checkTie };
 };
 
 function createPlayer (name, token) {
@@ -86,10 +100,15 @@ function GameController () {
         const col = prompt("Col");
         board.placeToken(row,col,activePlayer.playerToken);
         board.checkWinner();
+        board.checkTie();
         switchPlayer();
         board.printBoard();
     }
 
+    turn();
+    turn();
+    turn();
+    turn();
     turn();
     turn();
     turn();
