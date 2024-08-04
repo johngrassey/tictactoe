@@ -124,18 +124,30 @@ function GameController () {
 
 function ScreenController () {
     const game = GameController();
+    const boardDiv = document.querySelector(".board");
+    const messageDiv = document.querySelector(".message");
 
 
     const updateScreen = () => {
         const activePlayer = game.getActivePlayer();
         const board = game.getBoard();
 
+        messageDiv.textContent = `${activePlayer.playerName}'s Turn`;
+
+        board.forEach(row => {
+            row.forEach(col => {
+                const cellDiv = document.createElement("div");
+                cellDiv.classList.add("cell");
+                cellDiv.textContent = "TEST";
+                boardDiv.appendChild(cellDiv);
+            })
+        })
+
         console.log(board);
         console.log(activePlayer);
     }
 
-    return { updateScreen };
+    updateScreen();
 }
 
-const test = ScreenController()
-test.updateScreen();
+ScreenController()
