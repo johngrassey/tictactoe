@@ -23,6 +23,8 @@ function Gameboard () {
  
     }
 
+    const getBoard = () => board;
+
     const clearBoard = () => {
         for (let i = 0; i < rows; i++) {
             board[i] = [];
@@ -76,7 +78,7 @@ function Gameboard () {
         }
     }
 
-    return { printBoard, placeToken, clearBoard, checkWinner, checkTie };
+    return { printBoard, placeToken, clearBoard, checkWinner, checkTie, getBoard };
 };
 
 function createPlayer (name, token) {
@@ -97,6 +99,8 @@ function GameController () {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
 
+    const getActivePlayer = () => activePlayer;
+
     const playTurn = () => {
         const row = prompt("Row");
         const col = prompt("Col");
@@ -114,9 +118,24 @@ function GameController () {
         alert ( "GAME OVER!");
     }
 
-    return { playGame };
+    return { playGame, getActivePlayer,
+            getBoard: board.getBoard };
 };
 
-const game = GameController();
+function ScreenController () {
+    const game = GameController();
 
-game.playGame();
+
+    const updateScreen = () => {
+        const activePlayer = game.getActivePlayer();
+        const board = game.getBoard();
+
+        console.log(board);
+        console.log(activePlayer);
+    }
+
+    return { updateScreen };
+}
+
+const test = ScreenController()
+test.updateScreen();
