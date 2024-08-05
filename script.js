@@ -88,12 +88,16 @@ function createPlayer (name, token) {
         score++;
     }
 
-    return { playerName, playerToken, addScore };
+    const getScore = () => {
+        return score
+    }
+
+    return { playerName, playerToken, addScore, getScore };
 };
 
 function GameController () {
-    const players = [createPlayer ("John", "X"),
-                    createPlayer ("Brielle", "O")]
+    const players = [createPlayer ("Player One", "X"),
+                    createPlayer ("Player Two", "O")]
     const board = Gameboard();
 
     let activePlayer = players[0];

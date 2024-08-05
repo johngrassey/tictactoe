@@ -34,7 +34,6 @@ HTML RESET
 
   h1 {
     color: white;
-    margin-top: 50px;
     font-size: 4rem;
   }
 
@@ -48,12 +47,15 @@ HTML RESET
     justify-content:space-evenly;
     align-items: center;
     gap: 30px;
+    height: 100vh;
   }
 
   .content {
     display: flex;
     align-items: center;
     gap: 50px;
+    height: 100vh;
+    width: 100%;
   }
 
   .player1 {
@@ -73,7 +75,6 @@ HTML RESET
     grid-template-columns: repeat(3, 150px);
     grid-template-rows: repeat(3, 150px);
     gap: 20px;
-    margin-top: 50px;
   }
 
   .cell {
