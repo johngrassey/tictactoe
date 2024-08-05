@@ -111,18 +111,20 @@ function GameController () {
     const playTurn = (row, col) => {
         board.placeToken(row,col,activePlayer.playerToken);
 
-        if (board.checkWinner()) {
-            alert (`${activePlayer.playerName} Wins!`)
-            activePlayer.addScore();
-        } else if (board.checkTie()) {
-            alert ("It's a tie!")
-        }
+        // if (board.checkWinner()) {
+        //     alert (`${activePlayer.playerName} Wins!`)
+        //     activePlayer.addScore();
+        // } else if (board.checkTie()) {
+        //     alert ("It's a tie!")
+        // }
 
         switchPlayer();
     }
 
     return { getActivePlayer, playTurn,
-            getBoard: board.getBoard };
+            getBoard: board.getBoard ,
+            checkWinner: board.checkWinner,
+            checkTie: board.checkTie};
     };
 
 function ScreenController () {
@@ -153,10 +155,25 @@ function ScreenController () {
                     if (board[i][j] === "" ) {
                         game.playTurn(i, j);
                         updateScreen();
+                        if (game.checkWinner()) {
+                            sayWinner();
+                        } else if (game.checkTie()) {
+                            sayTie();
+                        }
+
+
                     }
                 });
             })
         }) 
+
+        const sayWinner = () => {
+            messageDiv.textContent = `${activePlayer.playerName} Wins!`
+        }
+
+        const sayTie = () => {
+            messageDiv.textContent = `It's a tie!`
+        }
     }
 
     updateScreen();
