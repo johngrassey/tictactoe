@@ -160,8 +160,6 @@ function ScreenController () {
                         } else if (game.checkTie()) {
                             sayTie();
                         }
-
-
                     }
                 });
             })
@@ -169,10 +167,18 @@ function ScreenController () {
 
         const sayWinner = () => {
             messageDiv.textContent = `${activePlayer.playerName} Wins!`
+            showPlayButton();
         }
 
         const sayTie = () => {
-            messageDiv.textContent = `It's a tie!`
+            messageDiv.textContent = `It's a tie!`;
+            showPlayButton();
+        }
+
+        const showPlayButton = () => {
+            const playBtn = document.createElement("button");
+            playBtn.textContent = "Play Again";
+            messageDiv.appendChild(playBtn);
         }
     }
 
