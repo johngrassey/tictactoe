@@ -27,8 +27,32 @@ HTML RESET
 
   /* MAIN BODY */
 
+  body {
+    background-color: #1d2327;
+  }
+
+  h1 {
+    color: white;
+  }
+
   .board {
     display: grid;
-    grid-template-columns: repeat(3, 50px);
-    grid-template-rows: repeat(3, 50px);
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+    gap: 20px;
+  }
+
+  .cell {
+    background-color: #0b1317;
+    border-style: none;
+    border-radius: 15px;
+    color: #62d2e3;
+  }
+
+  .o {
+    color: #ea5b5f;
+  }
+
+  .x {
+    color: #62d2e3;
   }

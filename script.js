@@ -133,6 +133,11 @@ function ScreenController () {
                 const cellDiv = document.createElement("button");
                 cellDiv.classList.add("cell");
                 cellDiv.textContent = board[i][j];
+                if (cellDiv.textContent === "X") {
+                    cellDiv.classList.add("x")
+                } else if (cellDiv.textContent === "O") {
+                    cellDiv.classList.add("o");
+                }
                 boardDiv.appendChild(cellDiv);
                 cellDiv.addEventListener("click", (e) => {
                     if (board[i][j] === "" ) {
