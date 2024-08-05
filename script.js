@@ -15,9 +15,7 @@ function Gameboard () {
     }
 
     const placeToken = (row, column, token) => {
-        if (board[row][column] === "") {
             board[row][column] = token;
-        }
     }
 
     const getBoard = () => board;
@@ -105,9 +103,9 @@ function GameController () {
         board.placeToken(row,col,activePlayer.playerToken);
 
         if (board.checkWinner()) {
-            alert ("WINNER!")
+            alert (`${activePlayer.playerName} Wins!`)
         } else if (board.checkTie()) {
-            alert ("TIE!")
+            alert ("It's a tie!")
         }
 
         switchPlayer();
@@ -136,9 +134,11 @@ function ScreenController () {
                 cellDiv.classList.add("cell");
                 cellDiv.textContent = board[i][j];
                 boardDiv.appendChild(cellDiv);
-                cellDiv.addEventListener("click", () => {
-                    game.playTurn(i, j);
-                    updateScreen();
+                cellDiv.addEventListener("click", (e) => {
+                    if (board[i][j] === "" ) {
+                        game.playTurn(i, j);
+                        updateScreen();
+                    }
                 });
             })
         }) 
