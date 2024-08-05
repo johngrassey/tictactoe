@@ -82,8 +82,13 @@ function Gameboard () {
 function createPlayer (name, token) {
     const playerName = name;
     const playerToken = token;
+    let score = 0;
 
-    return { playerName, playerToken };
+    const addScore = () => {
+        score++;
+    }
+
+    return { playerName, playerToken, addScore };
 };
 
 function GameController () {
@@ -104,6 +109,7 @@ function GameController () {
 
         if (board.checkWinner()) {
             alert (`${activePlayer.playerName} Wins!`)
+            activePlayer.addScore();
         } else if (board.checkTie()) {
             alert ("It's a tie!")
         }

@@ -29,10 +29,43 @@ HTML RESET
 
   body {
     background-color: #1d2327;
+    font-family: 'Red Hat Display';
   }
 
   h1 {
     color: white;
+    margin-top: 50px;
+    font-size: 4rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .player1 {
+    color: #62d2e3;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .player2 {
+    color:#ea5b5f;
+    flex: 1 1 auto;
+    text-align: center;
   }
 
   .board {
@@ -40,6 +73,7 @@ HTML RESET
     grid-template-columns: repeat(3, 150px);
     grid-template-rows: repeat(3, 150px);
     gap: 20px;
+    margin-top: 50px;
   }
 
   .cell {
@@ -47,6 +81,8 @@ HTML RESET
     border-style: none;
     border-radius: 15px;
     color: #62d2e3;
+    font-size: 100px;
+    font-weight: 900;
   }
 
   .o {
@@ -55,4 +91,16 @@ HTML RESET
 
   .x {
     color: #62d2e3;
+  }
+
+  .token {
+    font-size: 100px;
+    font-weight: 900;
+  }
+
+  .message {
+    color: white;
+    justify-self: center;
+    font-size: 2rem;
+    font-weight: 700;
   }
