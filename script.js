@@ -96,11 +96,15 @@ function createPlayer (name, token) {
 };
 
 function GameController () {
-    const players = [createPlayer ("Player One", "X"),
-                    createPlayer ("Player Two", "O")]
+    let players =  [createPlayer ("Player One", "X"),
+                   createPlayer ("Player Two", "O")]
     const board = Gameboard();
 
     let activePlayer = players[0];
+
+    const createPlayers = (name1, name2) => {
+        players = [createPlayer (name1, "X"), createPlayer (name2, "O")]
+    }
 
     const switchPlayer = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -132,7 +136,8 @@ function GameController () {
             addPoint,
             getP1Score,
             getP2Score,
-            switchPlayer
+            switchPlayer, 
+            createPlayers
     };
     };
 
@@ -143,8 +148,8 @@ function ScreenController () {
     const newGameBtn = document.querySelector(".newgame");
     const endGameMsg = document.querySelector(".endgame");
     const endDialog = document.querySelector("dialog.end");
-    const p1ScoreDiv = document.querySelector(".p1score");
-    const p2ScoreDiv = document.querySelector(".p2score")
+    const p1ScoreDiv = document.querySelector("div.p1score");
+    const p2ScoreDiv = document.querySelector("div.p2score")
 
     const updateScreen = () => {
 
@@ -208,7 +213,8 @@ function ScreenController () {
         }
     }
 
-    updateScreen();
+updateScreen();
+
 }
 
 ScreenController()

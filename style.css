@@ -97,6 +97,7 @@ HTML RESET
   .p1score, .p2score {
     font-size: 4rem;
     font-weight: 700;
+    margin-bottom: 10px;
   }
 
   .message {
@@ -105,6 +106,38 @@ HTML RESET
     font-size: 2rem;
     font-weight: 700;
   }
+
+/* START DIALOG */
+
+dialog.start {
+  margin: auto;
+  padding: 30px;
+  border-style: none;
+  border-radius: 20px;
+  text-align: center;
+  position: absolute;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+input {
+  text-align: center;
+}
+
+.formcontent {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  
+}
 
   /* END DIALOG */
 
@@ -116,7 +149,7 @@ HTML RESET
     text-align: center;
   }
 
-  .newgame {
+  button.newgame, button.start {
     background-color: #ea5b5f;
     color: white;
     border-style: none;
