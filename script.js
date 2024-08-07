@@ -147,6 +147,7 @@ function ScreenController () {
     const messageDiv = document.querySelector(".message");
     const newGameBtn = document.querySelector(".newgame");
     const endGameMsg = document.querySelector(".endgame");
+    const form = document.querySelector("form");
     const endDialog = document.querySelector("dialog.end");
     const p1ScoreDiv = document.querySelector("div.p1score");
     const p2ScoreDiv = document.querySelector("div.p2score")
@@ -213,8 +214,23 @@ function ScreenController () {
         }
     }
 
-updateScreen();
+    const openStartModal = () => {
+        startModal = document.querySelector("dialog.start");
+        startModal.showModal();
+    }
+
+    const closeStartModal = (event) => {
+        event.preventDefault();
+        startModal.close();
+    }
+
+    form.addEventListener("submit", closeStartModal)
+
+    openStartModal();
+    updateScreen();
+
 
 }
 
-ScreenController()
+
+ScreenController();
