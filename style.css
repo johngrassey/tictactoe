@@ -94,6 +94,11 @@ HTML RESET
     color: #62d2e3;
   }
 
+  .p1score, .p2score {
+    font-size: 4rem;
+    font-weight: 700;
+  }
+
   .message {
     color: white;
     justify-self: center;

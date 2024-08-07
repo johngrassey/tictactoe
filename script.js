@@ -85,7 +85,7 @@ function createPlayer (name, token) {
     let score = 0;
 
  function addScore () {
-        score++;
+        ++score;
     }
 
     const getScore = () => {
@@ -110,15 +110,29 @@ function GameController () {
 
     const playTurn = (row, col) => {
         board.placeToken(row,col,activePlayer.playerToken);
+    }
 
-        switchPlayer();
+    const addPoint = () => {
+        activePlayer.addScore();
+    }
+
+    const getP1Score = () => {
+        return players[0].getScore();
+    }
+
+    const getP2Score = () => {
+        return players[1].getScore();
     }
 
     return { getActivePlayer, playTurn,
             getBoard: board.getBoard ,
             checkWinner: board.checkWinner,
             checkTie: board.checkTie,
-            clearBoard: board.clearBoard
+            clearBoard: board.clearBoard,
+            addPoint,
+            getP1Score,
+            getP2Score,
+            switchPlayer
     };
     };
 
@@ -129,6 +143,8 @@ function ScreenController () {
     const newGameBtn = document.querySelector(".newgame");
     const endGameMsg = document.querySelector(".endgame");
     const dialog = document.querySelector("dialog");
+    const p1ScoreDiv = document.querySelector(".p1score");
+    const p2ScoreDiv = document.querySelector(".p2score")
 
     const updateScreen = () => {
 
@@ -137,6 +153,8 @@ function ScreenController () {
         const board = game.getBoard();
 
         messageDiv.textContent = `${activePlayer.playerName}'s Turn`;
+        p1ScoreDiv.textContent = game.getP1Score();
+        p2ScoreDiv.textContent = game.getP2Score();
 
         newGameBtn.addEventListener("click", () => {
             newGame();
@@ -156,14 +174,16 @@ function ScreenController () {
                 cellDiv.addEventListener("click", (e) => {
                     if (board[i][j] === "" ) {
                         game.playTurn(i, j);
-                        updateScreen();
                         if (game.checkWinner()) {
                             sayWinner();
+                            game.addPoint();
                             endGame();
                         } else if (game.checkTie()) {
                             sayTie();
                             endGame();
                         }
+                        game.switchPlayer();
+                        updateScreen();
                     }
                 });
             })
