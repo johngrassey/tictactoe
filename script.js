@@ -24,7 +24,7 @@ function Gameboard () {
         for (let i = 0; i < rows; i++) {
             board[i] = [];
             for (let j = 0; j < cols; j++) {
-                board[i] = 0;
+                board[i][j] = "";
             }
         }
     }
@@ -84,7 +84,7 @@ function createPlayer (name, token) {
     const playerToken = token;
     let score = 0;
 
-    const addScore = () => {
+ function addScore () {
         score++;
     }
 
@@ -111,26 +111,24 @@ function GameController () {
     const playTurn = (row, col) => {
         board.placeToken(row,col,activePlayer.playerToken);
 
-        // if (board.checkWinner()) {
-        //     alert (`${activePlayer.playerName} Wins!`)
-        //     activePlayer.addScore();
-        // } else if (board.checkTie()) {
-        //     alert ("It's a tie!")
-        // }
-
         switchPlayer();
     }
 
     return { getActivePlayer, playTurn,
             getBoard: board.getBoard ,
             checkWinner: board.checkWinner,
-            checkTie: board.checkTie};
+            checkTie: board.checkTie,
+            clearBoard: board.clearBoard
+    };
     };
 
 function ScreenController () {
     const game = GameController();
     const boardDiv = document.querySelector(".board");
     const messageDiv = document.querySelector(".message");
+    const newGameBtn = document.querySelector(".newgame");
+    const endGameMsg = document.querySelector(".endgame");
+    const dialog = document.querySelector("dialog");
 
     const updateScreen = () => {
 
@@ -139,6 +137,10 @@ function ScreenController () {
         const board = game.getBoard();
 
         messageDiv.textContent = `${activePlayer.playerName}'s Turn`;
+
+        newGameBtn.addEventListener("click", () => {
+            newGame();
+        });
 
         board.forEach((row, i) => {
             row.forEach((col, j) => {
@@ -157,8 +159,10 @@ function ScreenController () {
                         updateScreen();
                         if (game.checkWinner()) {
                             sayWinner();
+                            endGame();
                         } else if (game.checkTie()) {
                             sayTie();
+                            endGame();
                         }
                     }
                 });
@@ -166,19 +170,21 @@ function ScreenController () {
         }) 
 
         const sayWinner = () => {
-            messageDiv.textContent = `${activePlayer.playerName} Wins!`
-            showPlayButton();
+            endGameMsg.textContent = `${activePlayer.playerName} Wins!`
         }
 
         const sayTie = () => {
-            messageDiv.textContent = `It's a tie!`;
-            showPlayButton();
+            endGameMsg.textContent = `It's a tie!`;
         }
 
-        const showPlayButton = () => {
-            const playBtn = document.createElement("button");
-            playBtn.textContent = "Play Again";
-            messageDiv.appendChild(playBtn);
+        const endGame = () => {
+            dialog.showModal();
+        }
+
+        const newGame = () => {
+                game.clearBoard();
+                updateScreen();
+                dialog.close();
         }
     }
 
