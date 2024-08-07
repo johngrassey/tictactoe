@@ -105,3 +105,31 @@ HTML RESET
     font-size: 2rem;
     font-weight: 700;
   }
+
+  /* END DIALOG */
+
+  dialog.end {
+    margin: auto;
+    padding: 30px;
+    border-style: none;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .newgame {
+    background-color: #ea5b5f;
+    color: white;
+    border-style: none;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 5px 60px;
+    margin-top: 20px;
+    height: 36px;
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+
+  .endgame {
+    text-align: center;
+    font-size: 3rem;
+  }

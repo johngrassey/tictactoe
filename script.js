@@ -142,7 +142,7 @@ function ScreenController () {
     const messageDiv = document.querySelector(".message");
     const newGameBtn = document.querySelector(".newgame");
     const endGameMsg = document.querySelector(".endgame");
-    const dialog = document.querySelector("dialog");
+    const endDialog = document.querySelector("dialog.end");
     const p1ScoreDiv = document.querySelector(".p1score");
     const p2ScoreDiv = document.querySelector(".p2score")
 
@@ -198,13 +198,13 @@ function ScreenController () {
         }
 
         const endGame = () => {
-            dialog.showModal();
+            endDialog.showModal();
         }
 
         const newGame = () => {
                 game.clearBoard();
                 updateScreen();
-                dialog.close();
+                endDialog.close();
         }
     }
 
