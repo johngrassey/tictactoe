@@ -98,12 +98,22 @@ function createPlayer (name, token) {
 function GameController () {
     let players =  [createPlayer ("Player One", "X"),
                    createPlayer ("Player Two", "O")]
+
     const board = Gameboard();
 
     let activePlayer = players[0];
 
     const createPlayers = (name1, name2) => {
-        players = [createPlayer (name1, "X"), createPlayer (name2, "O")]
+        players[0].playerName = name1;
+        players[1].playerName = name2;
+    }
+
+    const getPlayer1 = () => {
+        return players[0].playerName
+    }
+    
+    const getPlayer2 = () => {
+        return players[1].playerName
     }
 
     const switchPlayer = () => {
@@ -137,7 +147,9 @@ function GameController () {
             getP1Score,
             getP2Score,
             switchPlayer, 
-            createPlayers
+            createPlayers,
+            getPlayer1,
+            getPlayer2
     };
     };
 
@@ -148,9 +160,13 @@ function ScreenController () {
     const newGameBtn = document.querySelector(".newgame");
     const endGameMsg = document.querySelector(".endgame");
     const form = document.querySelector("form");
+    const p1Name = document.querySelector("#p1");
+    const p2Name = document.querySelector("#p2");
     const endDialog = document.querySelector("dialog.end");
     const p1ScoreDiv = document.querySelector("div.p1score");
     const p2ScoreDiv = document.querySelector("div.p2score")
+    const p2NameDiv = document.querySelector(".p2name");
+    const p1NameDiv = document.querySelector(".p1name")
 
     const updateScreen = () => {
 
@@ -159,6 +175,8 @@ function ScreenController () {
         const board = game.getBoard();
 
         messageDiv.textContent = `${activePlayer.playerName}'s Turn`;
+        p1NameDiv.textContent = `${game.getPlayer1()}'s Score`
+        p2NameDiv.textContent = `${game.getPlayer2()}'s Score`
         p1ScoreDiv.textContent = game.getP1Score();
         p2ScoreDiv.textContent = game.getP2Score();
 
@@ -221,13 +239,15 @@ function ScreenController () {
 
     const closeStartModal = (event) => {
         event.preventDefault();
+        game.createPlayers(p1Name.value, p2Name.value)
+        console.log(game.getActivePlayer());
         startModal.close();
+        updateScreen();
     }
 
     form.addEventListener("submit", closeStartModal)
 
     openStartModal();
-    updateScreen();
 
 
 }
